@@ -3,7 +3,12 @@
     "Catalog.API": {
       "commandName": "Project",
       "launchBrowser": true,
+<<<<<<< HEAD
       "launchUrl": "swagger/index.html",
+=======
+      "launchUrl": "swagger",
+      "applicationUrl": "https://localhost:2001;http://localhost:2000"
+>>>>>>> 517e68f67cc9d028c2349e2b2513e9058ec5bbcb
       "environmentVariables": {
         "ASPNETCORE_ENVIRONMENT": "Development"
       },
