@@ -22,7 +22,7 @@ namespace Basket.API.Controllers
         {
             var basket = await _repository.GetBasket(userName);
 
-            return Ok(basket);
+            return Ok(basket?? new BasketCart(userName));
         }
 
         [HttpPost]
@@ -34,7 +34,7 @@ namespace Basket.API.Controllers
 
         [HttpDelete("{userName}")]
         [ProducesResponseType(typeof(bool), StatusCodes.Status200OK)]
-        public async Task<ActionResult<bool>> DeleteBasket([FromBody] string userName)
+        public async Task<ActionResult<bool>> DeleteBasket(string userName)
         {
             return Ok(await _repository.DeleteBasket(userName));
         }
