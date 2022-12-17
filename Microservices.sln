@@ -17,7 +17,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Basket.API", "src\Basket\Ba
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Common", "Common", "{ACE3D8E9-3A35-487C-91CA-F0D5F4819CEC}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EventBus.RabbitMQ", "src\Common\EventBus.RabbitMQ\EventBus.RabbitMQ.csproj", "{872E7B31-4260-4C44-964E-3E7FA7F4AE54}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "EventBus.RabbitMQ", "src\Common\EventBus.RabbitMQ\EventBus.RabbitMQ.csproj", "{872E7B31-4260-4C44-964E-3E7FA7F4AE54}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
