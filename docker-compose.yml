@@ -4,7 +4,9 @@ services:
     catalogdb:
         image: mongo
     basketdb:
-        image: redis
+        image: redis    
+    rabbitmq:
+        image: rabbitmq:3-management
 
     catalog.api:
         image: ${DOCKER_REGISTRY-}catalogapi
