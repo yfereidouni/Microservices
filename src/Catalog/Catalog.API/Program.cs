@@ -17,8 +17,9 @@ builder.Services.AddSwaggerGen(c =>
 {
     c.SwaggerDoc("v1", new OpenApiInfo
     {
-        Title = "Catalog API",
         Version = "v1",
+        Title = "Catalog.API",
+        Description = "Catalog.API",
         Contact = new OpenApiContact
         {
             Name = "Yasser Fereidouni",
@@ -46,15 +47,15 @@ if (app.Environment.IsDevelopment())
 app.UseSwagger();
 app.UseSwaggerUI(c =>
 {
-    c.SwaggerEndpoint("/swagger/v1/swagger.json", "Catalog.API - v1");
+    c.SwaggerEndpoint("/swagger/v1/swagger.json", "v1");
 });
 
 //app.UseRouting();
 
-app.UseHttpsRedirection();
+//app.UseHttpsRedirection();
 
-app.UseAuthorization();
+//app.UseAuthorization();
 
-app.MapControllers();
+//app.MapControllers();
 
 app.Run();
