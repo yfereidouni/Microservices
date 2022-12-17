@@ -17,13 +17,14 @@ builder.Services.AddSwaggerGen(c =>
     c.SwaggerDoc("v1", new OpenApiInfo()
     {
         Version = "v1",
+        Title = "Basket.API",
         Description = "Basket.API",
         Contact = new OpenApiContact()
         {
             Name = "Yasser FEREIDOUNI",
             Email = "Yasser.Fereidouni@gmail.com",
         }
-    });
+    }); ;
 });
 
 builder.Services.AddTransient<IBasketContext, BasketContext>();
@@ -47,13 +48,15 @@ if (app.Environment.IsDevelopment())
 app.UseSwagger();
 app.UseSwaggerUI(c =>
 {
-    c.SwaggerEndpoint("/swagger/v1/swagger.json", "Basket-API-V1");
+    c.SwaggerEndpoint("/swagger/v1/swagger.json", "v1");
 });
 
-app.UseHttpsRedirection();
+//app.UseRouting();
 
-app.UseAuthorization();
+//app.UseHttpsRedirection();
 
-app.MapControllers();
+//app.UseAuthorization();
+
+//app.MapControllers();
 
 app.Run();
