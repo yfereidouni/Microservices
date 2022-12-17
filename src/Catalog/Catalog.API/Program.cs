@@ -50,12 +50,12 @@ app.UseSwaggerUI(c =>
     c.SwaggerEndpoint("/swagger/v1/swagger.json", "v1");
 });
 
-//app.UseRouting();
+app.UseRouting();
 
-//app.UseHttpsRedirection();
+app.UseHttpsRedirection();
 
 //app.UseAuthorization();
 
-//app.MapControllers();
+app.MapControllers();
 
 app.Run();
