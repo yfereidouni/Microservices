@@ -1,5 +1,13 @@
+using MediatR;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.OpenApi.Models;
+using Ordering.Application.Commands;
+using Ordering.Core.Repositories;
+using Ordering.Core.Repositories.Base;
 using Ordering.Infrastructure.Data;
+using Ordering.Infrastructure.Repositories;
+using Ordering.Infrastructure.Repositories.Base;
+using System.Reflection;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -8,14 +16,31 @@ var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddControllers();
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
-builder.Services.AddSwaggerGen();
+builder.Services.AddSwaggerGen(c => 
+{
+    c.SwaggerDoc("v1", new OpenApiInfo 
+    { 
+        Title = "Ordering.API",
+        Description= "Ordering.API", 
+        Version = "v1",
+        Contact = new OpenApiContact
+        {
+            Name = "Yasser Fereidouni",
+            Email = "Yasser.Fereidouni@gmail.com"
+        }
+    });
+});
 
-builder.Services.AddDbContext<OrderContext>(opt => 
+builder.Services.AddDbContext<OrderContext>(opt =>
 {
     opt.UseSqlServer(builder.Configuration.GetConnectionString("OrderConnection"));
 });
 
-
+builder.Services.AddAutoMapper(typeof(Program));
+builder.Services.AddMediatR(typeof(CheckoutOrderHandler).GetTypeInfo().Assembly);
+builder.Services.AddTransient<IOrderRepository, OrderRepository>();
+builder.Services.AddScoped(typeof(IRepository<>), typeof(Repository<>));
+builder.Services.AddScoped(typeof(IOrderRepository), typeof(OrderRepository));
 
 var app = builder.Build();
 
@@ -24,34 +49,22 @@ using (var scope = app.Services.CreateScope())
 {
     var services = scope.ServiceProvider;
     var context = services.GetRequiredService<OrderContext>();
-
-    //Auto-Migrate Database
     context.Database.Migrate();
-
-    // Preparing default values for DB
     await OrderContextSeed.SeedAsync(services);
-
-
-    //var loggerFactory = services.GetRequiredService<ILoggerFactory>();
-    //try
-    //{
-    //    ///SeedDatabase------------------------------------------------------------------------------------
-    //    await OrderContextSeed.SeedAsync(context, loggerFactory);
-    //}
-    //catch (Exception ex)
-    //{
-    //    var logger = loggerFactory.CreateLogger<Program>();
-    //    logger.LogError(ex.Message);
-    //}
 }
 
 
 // Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())
 {
-    app.UseSwagger();
-    app.UseSwaggerUI();
 }
+
+app.UseSwagger();
+
+app.UseSwaggerUI(c =>
+{
+    c.SwaggerEndpoint("/swagger/v1/swagger.json", "v1");
+});
 
 app.UseHttpsRedirection();
 
