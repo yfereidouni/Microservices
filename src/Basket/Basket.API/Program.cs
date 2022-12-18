@@ -50,10 +50,15 @@ builder.Services.AddSingleton<IRabbitMQConnection>(sp =>
 {
     var factory = new ConnectionFactory()
     {
-        //HostName = builder.Configuration.GetSection("EventBus:HostName").Value,
-        HostName = "localhost",
+        HostName = builder.Configuration.GetSection("EventBus:HostName").Value,
+        //HostName = "localhost",
         UserName = "guest",
         Password = "guest"
+        //Uri = new Uri("amqp://guest:guest@localhost:5672/"),
+        //Port = AmqpTcpEndpoint.UseDefaultPort,
+        //VirtualHost = "/",
+        //RequestedHeartbeat = new TimeSpan(60),
+        //Ssl = { ServerName = "localhost", Enabled = false }
     };
     //if (!string.IsNullOrEmpty(builder.Configuration.GetSection("EventBus:UserName").Value))
     //{
