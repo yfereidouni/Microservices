@@ -1,3 +1,5 @@
+using EventBus.RabbitMQ.Producer;
+using EventBus.RabbitMQ;
 using MediatR;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.OpenApi.Models;
@@ -7,6 +9,7 @@ using Ordering.Core.Repositories.Base;
 using Ordering.Infrastructure.Data;
 using Ordering.Infrastructure.Repositories;
 using Ordering.Infrastructure.Repositories.Base;
+using RabbitMQ.Client;
 using System.Reflection;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -41,6 +44,21 @@ builder.Services.AddMediatR(typeof(CheckoutOrderHandler).GetTypeInfo().Assembly)
 builder.Services.AddTransient<IOrderRepository, OrderRepository>();
 builder.Services.AddScoped(typeof(IRepository<>), typeof(Repository<>));
 builder.Services.AddScoped(typeof(IOrderRepository), typeof(OrderRepository));
+
+
+///RabbitMQ Connection Configuration -------------
+builder.Services.AddSingleton<IRabbitMQConnection>(sp =>
+{
+    var factory = new ConnectionFactory()
+    {
+        HostName = builder.Configuration.GetSection("EventBus:HostName").Value,
+        UserName = "guest",
+        Password = "guest"
+    };
+    return new RabbitMQConnection(factory);
+});
+builder.Services.AddSingleton<EventBusRabbitMQProducer>();
+///-----------------------------------------------
 
 var app = builder.Build();
 
