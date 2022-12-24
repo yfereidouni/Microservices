@@ -11,6 +11,8 @@ using Ordering.Infrastructure.Repositories;
 using Ordering.Infrastructure.Repositories.Base;
 using RabbitMQ.Client;
 using System.Reflection;
+using Ordering.API.Extensions;
+using Ordering.API.RabbitMQ;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -35,16 +37,13 @@ builder.Services.AddSwaggerGen(c =>
 });
 
 builder.Services.AddDbContext<OrderContext>(opt =>
-{
-    opt.UseSqlServer(builder.Configuration.GetConnectionString("OrderConnection"));
-});
+    opt.UseSqlServer(builder.Configuration.GetConnectionString("OrderConnection")), ServiceLifetime.Singleton);
 
-builder.Services.AddAutoMapper(typeof(Program));
-builder.Services.AddMediatR(typeof(CheckoutOrderHandler).GetTypeInfo().Assembly);
-builder.Services.AddTransient<IOrderRepository, OrderRepository>();
 builder.Services.AddScoped(typeof(IRepository<>), typeof(Repository<>));
 builder.Services.AddScoped(typeof(IOrderRepository), typeof(OrderRepository));
-
+builder.Services.AddTransient<IOrderRepository, OrderRepository>();
+builder.Services.AddAutoMapper(typeof(Program));
+builder.Services.AddMediatR(typeof(CheckoutOrderHandler).GetTypeInfo().Assembly);
 
 ///RabbitMQ Connection Configuration -------------
 builder.Services.AddSingleton<IRabbitMQConnection>(sp =>
@@ -57,7 +56,7 @@ builder.Services.AddSingleton<IRabbitMQConnection>(sp =>
     };
     return new RabbitMQConnection(factory);
 });
-builder.Services.AddSingleton<EventBusRabbitMQProducer>();
+builder.Services.AddSingleton<EventBusRabbitMQConsumer>();
 ///-----------------------------------------------
 
 var app = builder.Build();
@@ -89,5 +88,7 @@ app.UseHttpsRedirection();
 app.UseAuthorization();
 
 app.MapControllers();
+
+app.UseRabbitListener();
 
 app.Run();
