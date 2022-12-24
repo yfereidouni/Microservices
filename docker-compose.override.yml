@@ -15,6 +15,14 @@ services:
         ports:
             - "6379:6379"
 
+    orderdb:
+        container_name: orderdb     
+        ports:
+            - "1444:1433"
+        environment:
+            SA_PASSWORD: "1qaz!QAZ"
+            ACCEPT_EULA: "Y"
+
     rabbitmq:
         container_name: rabbitmq
         restart: always        
@@ -53,3 +61,25 @@ services:
         ports:
             - "3001:443"
             - "3000:80"
+
+    ordering.api:
+        container_name: orderingapi
+        restart: on-failure
+        environment:
+            - ASPNETCORE_ENVIRONMENT=Development
+            - ASPNETCORE_URLS=https://+:443;http://+:80
+            - "ConnectionStrings:OrderConnection=Server=orderdb;Database=Order_DB;User Id=sa;Password=1qaz!QAZ;MultipleActiveResultSets=True;TrustServerCertificate=True;"
+            - "EventBus:HostName=rabbitmq"
+            - "EventBus:UserName=guest"
+            - "EventBus:Password=guest"
+        depends_on:
+            - orderdb
+            - rabbitmq
+        volumes:
+            #- ${HOME}/.microsoft/usersecrets/:/root/.microsoft/usersecrets
+            #- ${HOME}/.aspnet/https:/root/.aspnet/https/
+            - ${APPDATA}/Microsoft/UserSecrets:/root/.microsoft/usersecrets:ro
+            - ${APPDATA}/ASP.NET/Https:/root/.aspnet/https:ro
+        ports:
+            - "4001:443"
+            - "4000:80"

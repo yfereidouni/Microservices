@@ -25,12 +25,12 @@ builder.Services.AddSwaggerGen(c =>
 {
     c.SwaggerDoc("v1", new OpenApiInfo 
     { 
+        Version = "v1",
         Title = "Ordering.API",
         Description= "Ordering.API", 
-        Version = "v1",
         Contact = new OpenApiContact
         {
-            Name = "Yasser Fereidouni",
+            Name = "Yasser FEREIDOUNI",
             Email = "Yasser.Fereidouni@gmail.com"
         }
     });
@@ -74,21 +74,23 @@ using (var scope = app.Services.CreateScope())
 // Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())
 {
+    app.UseDeveloperExceptionPage();
 }
 
-app.UseSwagger();
+app.UseRouting();
 
-app.UseSwaggerUI(c =>
-{
-    c.SwaggerEndpoint("/swagger/v1/swagger.json", "v1");
-});
-
-app.UseHttpsRedirection();
+//app.UseHttpsRedirection();
 
 app.UseAuthorization();
 
 app.MapControllers();
 
 app.UseRabbitListener();
+
+app.UseSwagger();
+app.UseSwaggerUI(c =>
+{
+    c.SwaggerEndpoint("/swagger/v1/swagger.json", "v1");
+});
 
 app.Run();

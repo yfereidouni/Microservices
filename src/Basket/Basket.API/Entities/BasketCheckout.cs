@@ -1,8 +1,12 @@
-﻿namespace Basket.API.Entities;
+﻿using System.ComponentModel.DataAnnotations.Schema;
+
+namespace Basket.API.Entities;
 
 public class BasketCheckout
 {
     public string UserName { get; set; }
+
+    [Column(TypeName = "decimal(18,2)")]
     public decimal TotalPrice { get; set; }
 
     //BillingAddress
