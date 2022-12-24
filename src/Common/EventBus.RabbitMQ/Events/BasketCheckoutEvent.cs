@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -10,6 +11,8 @@ public class BasketCheckoutEvent
 {
     public Guid RequestId { get; set; }
     public string UserName { get; set; }
+    
+    [Column(TypeName = "decimal(18,2)")]
     public decimal TotalPrice { get; set; }
 
     //BillingAddress
