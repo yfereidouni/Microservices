@@ -1,7 +1,9 @@
 ﻿using MediatR;
+using Microsoft.EntityFrameworkCore.Metadata.Internal;
 using Ordering.Application.Responses;
 using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -11,6 +13,8 @@ namespace Ordering.Application.Commands;
 public class CheckoutOrderCommand : IRequest<OrderResponse>
 {
     public string UserName { get; set; }
+    
+    [Column(TypeName = "decimal(18,2)")]
     public decimal TotalPrice { get; set; }
 
     //BillingAddress

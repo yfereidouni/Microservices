@@ -1,4 +1,6 @@
-﻿namespace Basket.API.Entities;
+﻿using System.ComponentModel.DataAnnotations.Schema;
+
+namespace Basket.API.Entities;
 
 public class BasketCart
 {
@@ -14,6 +16,7 @@ public class BasketCart
         UserName = userName;
     }
 
+    [Column(TypeName = "decimal(18,2)")]
     public Decimal TotalPrice
     {
         get 

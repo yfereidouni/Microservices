@@ -19,17 +19,17 @@ builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen(c =>
 {
-    c.SwaggerDoc("v1", new OpenApiInfo()
+    c.SwaggerDoc("v1", new OpenApiInfo
     {
         Version = "v1",
         Title = "Basket.API",
         Description = "Basket.API",
-        Contact = new OpenApiContact()
+        Contact = new OpenApiContact
         {
             Name = "Yasser FEREIDOUNI",
             Email = "Yasser.Fereidouni@gmail.com",
         }
-    }); ;
+    });
 });
 
 builder.Services.AddTransient<IBasketContext, BasketContext>();
@@ -66,20 +66,21 @@ var app = builder.Build();
 // Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())
 {
+    app.UseDeveloperExceptionPage();
 }
+
+app.UseRouting();
+
+app.UseAuthorization();
+
+//app.UseHttpsRedirection();
+
+app.MapControllers();
 
 app.UseSwagger();
 app.UseSwaggerUI(c =>
 {
     c.SwaggerEndpoint("/swagger/v1/swagger.json", "v1");
 });
-
-app.UseRouting();
-
-app.UseHttpsRedirection();
-
-//app.UseAuthorization();
-
-app.MapControllers();
 
 app.Run();
