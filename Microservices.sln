@@ -21,13 +21,21 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "EventBus.RabbitMQ", "src\Co
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Ordering", "Ordering", "{0BF82BE8-7DA3-47E7-A45E-F7B746B78005}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Ordering.API", "src\Ordering\Ordering.API\Ordering.API.csproj", "{7881E553-0391-4CA9-B48A-0278A9DA2EC9}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Ordering.API", "src\Ordering\Ordering.API\Ordering.API.csproj", "{7881E553-0391-4CA9-B48A-0278A9DA2EC9}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Ordering.Core", "src\Ordering\Ordering.Core\Ordering.Core.csproj", "{1A5AFE4B-1AF0-482A-B113-E23AA6F7B5F8}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Ordering.Core", "src\Ordering\Ordering.Core\Ordering.Core.csproj", "{1A5AFE4B-1AF0-482A-B113-E23AA6F7B5F8}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Ordering.Infrastructure", "src\Ordering\Ordering.Infrastructure\Ordering.Infrastructure.csproj", "{FADEE608-5214-46A7-A38E-ED2A474D164A}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Ordering.Infrastructure", "src\Ordering\Ordering.Infrastructure\Ordering.Infrastructure.csproj", "{FADEE608-5214-46A7-A38E-ED2A474D164A}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Ordering.Application", "src\Ordering\Ordering.Application\Ordering.Application.csproj", "{20040495-F2B7-4929-9F8E-DFA88DF3E7F8}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Ordering.Application", "src\Ordering\Ordering.Application\Ordering.Application.csproj", "{20040495-F2B7-4929-9F8E-DFA88DF3E7F8}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "ApiGateway", "ApiGateway", "{9DD8CCAD-3142-4371-9C81-CCA9DB48ED05}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Ocelot.ApiGateway", "src\ApiGateway\Ocelot.ApiGateway\Ocelot.ApiGateway.csproj", "{3DF8D606-E0C1-4F66-A070-2C1D6A6782EA}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "WebApp", "WebApp", "{803C5C96-493E-43B5-9CAC-65F6F22B5DE1}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AspnetRunBasics", "src\WebApp\AspnetRunBasics\AspnetRunBasics.csproj", "{79DA6365-6390-4F49-95F6-D38CA380C6C0}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -67,6 +75,14 @@ Global
 		{20040495-F2B7-4929-9F8E-DFA88DF3E7F8}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{20040495-F2B7-4929-9F8E-DFA88DF3E7F8}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{20040495-F2B7-4929-9F8E-DFA88DF3E7F8}.Release|Any CPU.Build.0 = Release|Any CPU
+		{3DF8D606-E0C1-4F66-A070-2C1D6A6782EA}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{3DF8D606-E0C1-4F66-A070-2C1D6A6782EA}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{3DF8D606-E0C1-4F66-A070-2C1D6A6782EA}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{3DF8D606-E0C1-4F66-A070-2C1D6A6782EA}.Release|Any CPU.Build.0 = Release|Any CPU
+		{79DA6365-6390-4F49-95F6-D38CA380C6C0}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{79DA6365-6390-4F49-95F6-D38CA380C6C0}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{79DA6365-6390-4F49-95F6-D38CA380C6C0}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{79DA6365-6390-4F49-95F6-D38CA380C6C0}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -83,6 +99,10 @@ Global
 		{1A5AFE4B-1AF0-482A-B113-E23AA6F7B5F8} = {0BF82BE8-7DA3-47E7-A45E-F7B746B78005}
 		{FADEE608-5214-46A7-A38E-ED2A474D164A} = {0BF82BE8-7DA3-47E7-A45E-F7B746B78005}
 		{20040495-F2B7-4929-9F8E-DFA88DF3E7F8} = {0BF82BE8-7DA3-47E7-A45E-F7B746B78005}
+		{9DD8CCAD-3142-4371-9C81-CCA9DB48ED05} = {F4772D35-42C2-4957-9E76-A12320B7EBB4}
+		{3DF8D606-E0C1-4F66-A070-2C1D6A6782EA} = {9DD8CCAD-3142-4371-9C81-CCA9DB48ED05}
+		{803C5C96-493E-43B5-9CAC-65F6F22B5DE1} = {F4772D35-42C2-4957-9E76-A12320B7EBB4}
+		{79DA6365-6390-4F49-95F6-D38CA380C6C0} = {803C5C96-493E-43B5-9CAC-65F6F22B5DE1}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {B1FCA346-2DA4-417D-A0EE-700EE83426B1}

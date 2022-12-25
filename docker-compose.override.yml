@@ -41,7 +41,7 @@ services:
             - ${HOME}/.microsoft/usersecrets/:/root/.microsoft/usersecrets
             - ${HOME}/.aspnet/https:/root/.aspnet/https/
         ports:
-            - "2001:443"
+            #- "2001:443"
             - "2000:80"
 
     basket.api:
@@ -59,7 +59,7 @@ services:
             - ${HOME}/.microsoft/usersecrets/:/root/.microsoft/usersecrets
             - ${HOME}/.aspnet/https:/root/.aspnet/https/
         ports:
-            - "3001:443"
+            #- "3001:443"
             - "3000:80"
 
     ordering.api:
@@ -76,10 +76,26 @@ services:
             - orderdb
             - rabbitmq
         volumes:
+            - ${HOME}/.microsoft/usersecrets/:/root/.microsoft/usersecrets
+            - ${HOME}/.aspnet/https:/root/.aspnet/https/
             #- ${HOME}/.microsoft/usersecrets/:/root/.microsoft/usersecrets
             #- ${HOME}/.aspnet/https:/root/.aspnet/https/
-            - ${APPDATA}/Microsoft/UserSecrets:/root/.microsoft/usersecrets:ro
-            - ${APPDATA}/ASP.NET/Https:/root/.aspnet/https:ro
+            #- ${APPDATA}/Microsoft/UserSecrets:/root/.microsoft/usersecrets:ro
+            #- ${APPDATA}/ASP.NET/Https:/root/.aspnet/https:ro
         ports:
-            - "4001:443"
+            #- "4001:443"
             - "4000:80"
+
+    ocelotapigateway:
+        container_name: ocelotapigateway
+        environment:
+            - ASPNETCORE_ENVIRONMENT=Development
+        depends_on:
+            - catalog.api
+            - basket.api
+            - ordering.api
+        volumes:
+            - ${HOME}/.microsoft/usersecrets/:/root/.microsoft/usersecrets
+            - ${HOME}/.aspnet/https:/root/.aspnet/https/
+        ports:
+            - "1000:80"
