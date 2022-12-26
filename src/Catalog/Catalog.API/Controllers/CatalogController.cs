@@ -26,8 +26,15 @@ namespace Catalog.API.Controllers
         //[ProducesResponseType(StatusCodes.Status200OK)]
         public async Task<ActionResult<IEnumerable<Product>>> GetProducts()
         {
-            var products = await _repository.GetProducts();
-            return Ok(products);
+            try
+            {
+                var products = await _repository.GetProducts();
+                return Ok(products);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex);
+            }
         }
 
         //[HttpGet("{id:length(24)}", Name = "GetProduct")]
@@ -53,9 +60,16 @@ namespace Catalog.API.Controllers
         [ProducesResponseType(typeof(IEnumerable<Product>), (int)HttpStatusCode.OK)]
         public async Task<ActionResult<IEnumerable<Product>>> GetProductByCategory(string categoryName)
         {
-            var products = await _repository.GetProductByCategory(categoryName);
+            try
+            {
+                var products = await _repository.GetProductByCategory(categoryName);
 
-            return Ok(products);
+                return Ok(products);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex);
+            }
         }
 
         [Route("[action]/{name}")]
@@ -63,35 +77,56 @@ namespace Catalog.API.Controllers
         [ProducesResponseType(typeof(IEnumerable<Product>), (int)HttpStatusCode.OK)]
         public async Task<ActionResult<IEnumerable<Product>>> GetProductByName(string name)
         {
-            var products = await _repository.GetProductByName(name);
+            try
+            {
+                var products = await _repository.GetProductByName(name);
 
-            return Ok(products);
+                return Ok(products);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex);
+            }
         }
 
         [HttpPost]
         [ProducesResponseType(typeof(Product), (int)HttpStatusCode.OK)]
         public async Task<ActionResult<Product>> CreateProduct([FromBody] ProductVM productVM)
         {
-            var product = new Product
+            try
             {
-                Name = productVM.Name,
-                Description = productVM.Description,
-                Summary = productVM.Summary,
-                ImageFile = productVM.ImageFile,
-                Category= productVM.Category,
-                Price = productVM.Price
-            };
+                var product = new Product
+                {
+                    Name = productVM.Name,
+                    Description = productVM.Description,
+                    Summary = productVM.Summary,
+                    ImageFile = productVM.ImageFile,
+                    Category = productVM.Category,
+                    Price = productVM.Price
+                };
 
-            await _repository.Create(product);
+                await _repository.Create(product);
 
-            return CreatedAtRoute("GetProduct", new { id = product.Id }, product);
+                return CreatedAtRoute("GetProduct", new { id = product.Id }, product);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex);
+            }
         }
 
         [HttpPut]
         [ProducesResponseType((int)HttpStatusCode.OK)]
         public async Task<IActionResult> UpdateProduct([FromBody] Product product)
         {
-            return Ok(await _repository.Update(product));
+            try
+            {
+                return Ok(await _repository.Update(product));
+            }
+            catch (Exception e)
+            {
+                return BadRequest();
+            }
         }
 
         [Route("[action]/{id}")]
