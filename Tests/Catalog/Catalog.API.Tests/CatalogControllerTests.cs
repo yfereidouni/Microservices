@@ -35,7 +35,7 @@ namespace Catalog.API.Tests
             _productRepositoryMock.Setup(repo => repo.GetProducts())
                 .Returns(products);
 
-            _controller = new CatalogController(_productRepositoryMock.Object, _loggerMock.Object);
+            //_controller = new CatalogController(_productRepositoryMock.Object, _loggerMock.Object);
 
             var result = _controller.GetProducts();
 

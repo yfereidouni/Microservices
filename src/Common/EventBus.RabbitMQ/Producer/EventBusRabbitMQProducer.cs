@@ -14,7 +14,11 @@ public class EventBusRabbitMQProducer
 {
 	private readonly IRabbitMQConnection _connection;
 
-	public EventBusRabbitMQProducer(IRabbitMQConnection connection)
+    public EventBusRabbitMQProducer()
+    {
+    }
+
+    public EventBusRabbitMQProducer(IRabbitMQConnection connection)
 	{
 		_connection = connection;
 	}
